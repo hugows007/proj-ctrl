@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:proj_ctrl/controllers/helpers/product.dart';
-import 'package:proj_ctrl/data/model/product.dart';
 import 'package:sizer/sizer.dart';
 
 class ProductsListComponent extends StatelessWidget {

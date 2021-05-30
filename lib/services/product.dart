@@ -3,10 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proj_ctrl/constants/mock_uri.dart';
-import 'package:proj_ctrl/controllers/login.dart';
-import 'package:proj_ctrl/core/routes/app_routes.dart';
 import 'package:proj_ctrl/data/model/product.dart';
-import 'package:proj_ctrl/data/model/user.dart';
 
 class ProductService {
   Future<List<ProductDto>> submitListProducts() async {

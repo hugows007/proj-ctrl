@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:proj_ctrl/bindings/home.dart';
 import 'package:proj_ctrl/bindings/login.dart';
-import 'package:proj_ctrl/bindings/splash.dart';
 import 'package:proj_ctrl/ui/views/home.dart';
 import 'package:proj_ctrl/ui/views/login.dart';
 import 'package:proj_ctrl/ui/views/product.dart';

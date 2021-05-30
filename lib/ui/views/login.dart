@@ -46,7 +46,7 @@ class LoginView extends GetView<LoginController> {
               Padding(
                 padding: EdgeInsets.all(20.0.w),
                 child: OutlinedButton(
-                  onPressed: () => controller.authUser(form: form),
+                  onPressed: () => controller.loginHelper.authUser(form: form, loginService: controller.loginService, loginController: controller),
                   child: Text('Logar'),
                 ),
               ),
