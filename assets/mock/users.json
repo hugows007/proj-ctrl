@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "nome": "Ricardo Bastos",
+    "login": "ricardo.bastos",
+    "senha": "123"
+  },
+  {
+    "id": "2",
+    "nome": "Bruno Silva",
+    "login": "bruno.silva",
+    "senha": "321"
+  }
+]

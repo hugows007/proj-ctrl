@@ -1,0 +1,46 @@
+[
+  {
+    "id":"1",
+    "codigo":"423-6",
+    "descricao":"Antartica Latão",
+    "preco":"0",
+    "entrada":"0",
+    "saida":"0"
+  } ,
+
+  {
+    "id":"2",
+    "codigo":"423-7",
+    "descricao":"Kaiser Latão",
+    "preco":"0",
+    "entrada":"0",
+    "saida":"0"
+  } ,
+
+  {
+    "id":"3",
+    "codigo":"423-8",
+    "descricao":"Kaiser Latão",
+    "preco":"0",
+    "entrada":"0",
+    "saida":"0"
+  },
+
+  {
+    "id":"4",
+    "codigo":"423-9",
+    "descricao":"STELLA Long",
+    "preco":"0",
+    "entrada":"0",
+    "saida":"0"
+  },
+
+  {
+    "id":"5",
+    "codigo":"423-0",
+    "descricao":"Imperio 600ml",
+    "preco":"0",
+    "entrada":"0",
+    "saida":"0"
+  }
+]

@@ -1,0 +1,97 @@
+
+Usuário ==============================
+
+[{
+  "id":"1",
+  "nome":"Ricardo Bastos",
+  "login":"ricardo.bastos",
+  "senha":"123"
+},
+{
+  "id":"2",
+  "nome":"Bruno Silva",
+  "login":"bruno.silva",
+  "senha":"321"
+}]
+
+Produtos ==============================
+
+[
+{
+  "id":"1",
+  "codigo":"423-6",
+  "descricao":"Antartica Latão",
+  "preco":"0",
+  "entrada":"0",
+  "saida":"0"
+} , 
+
+{
+  "id":"2",
+  "codigo":"423-7",
+  "descricao":"Kaiser Latão",
+  "preco":"0",
+  "entrada":"0",
+  "saida":"0"
+} , 
+
+{
+  "id":"3",
+  "codigo":"423-8",
+  "descricao":"Kaiser Latão",
+  "preco":"0",
+  "entrada":"0",
+  "saida":"0"
+},
+
+{
+  "id":"4",
+  "codigo":"423-9",
+  "descricao":"STELLA Long",
+  "preco":"0",
+  "entrada":"0",
+  "saida":"0"
+},
+
+{
+  "id":"5",
+  "codigo":"423-0",
+  "descricao":"Imperio 600ml",
+  "preco":"0",
+  "entrada":"0",
+  "saida":"0"
+}
+
+]
+
+Enviar para o servidor ==============================
+
+{
+"loja":{
+  "id":"1"
+},
+"turno":"1",
+"data": "01/01/2021",
+"usuario": {
+  "id":"1"
+} ,
+"produtos" :[
+{
+  "id":"1",
+  "codigo":"423-6",
+  "descricao":"Antartica Latão",
+  "preco":"100",
+  "entrada":"10",
+  "saida":"8"
+} , 
+{
+  "id":"2",
+  "codigo":"423-7",
+  "descricao":"Kaiser Latão",
+  "preco":"2.50",
+  "entrada":"20",
+  "saida":"19"
+} 
+]
+}
+
