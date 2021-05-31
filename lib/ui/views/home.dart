@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proj_ctrl/controllers/home.dart';
-import 'package:proj_ctrl/ui/components/circular_loading.dart';
-import 'package:proj_ctrl/ui/components/products/products_list.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -12,22 +10,18 @@ class HomeView extends GetView<HomeController> {
 
     return Obx(
       () => Scaffold(
-        appBar: AppBar(
-          leading: controller.homeHelper.isSearching.isTrue
-              ? const BackButton()
-              : Container(),
-          title: controller.homeHelper.isSearching.isTrue
-              ? controller.homeHelper.buildSearchField()
-              : Text('Bem vindo ao sistema'),
-          actions: controller.homeHelper.buildActions(),
-        ),
+        appBar: controller.homeHelper.buildBar(context),
         body: Stack(
           children: [
-            controller.homeHelper.isLoading.isTrue
-                ? CircularLoadingComponent()
-                : ProductsListComponent(
-                    productHelper: controller.productHelper,
-                  ),
+            ListView(
+              children: controller.homeHelper.isSearching.isTrue
+                  ? controller.homeHelper.buildSearchList(
+                      productHelper: controller.productHelper,
+                    )
+                  : controller.homeHelper.buildList(
+                      productHelper: controller.productHelper,
+                    ),
+            ),
             Positioned(
               bottom: 5.0.h,
               right: 5.0.w,

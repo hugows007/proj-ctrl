@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:proj_ctrl/bindings/home.dart';
 import 'package:proj_ctrl/bindings/splash.dart';
 import 'package:proj_ctrl/core/configs/messages.dart';
 import 'package:proj_ctrl/core/routes/app_routes.dart';

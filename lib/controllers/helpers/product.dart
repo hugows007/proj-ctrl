@@ -73,42 +73,45 @@ class ProductHelper {
     );
   }
 
-  void updateProduct() {
-    isLoading.value = true;
+  void updateProduct({required GlobalKey<FormState> form}) {
+    if (form.currentState!.validate()) {
+      isLoading.value = true;
 
-    productSelected!.entrada = entryController.text;
-    productSelected!.saida = exitController.text;
-    productSelected!.preco = valueController.text;
+      productSelected!.entrada = entryController.text;
+      productSelected!.saida = exitController.text;
+      productSelected!.preco = valueController.text;
 
-    products[productIndex!].entrada = entryController.text;
-    products[productIndex!].saida = exitController.text;
-    products[productIndex!].preco = valueController.text;
+      products[productIndex!].entrada = entryController.text;
+      products[productIndex!].saida = exitController.text;
+      products[productIndex!].preco = valueController.text;
 
-    entryController.text = '';
-    exitController.text = '';
-    valueController.text = '';
+      entryController.text = '';
+      exitController.text = '';
+      valueController.text = '';
 
-    productsToSend.add(productSelected!);
+      productsToSend.add(productSelected!);
 
-    Duration duration = Duration(seconds: 2);
+      Duration duration = Duration(seconds: 2);
 
-    Get.showSnackbar(
-      GetBar(
-        messageText: Text(
-          'Alterações registradas com sucesso',
-          style: TextStyle(
-            color: Get.theme.accentColor,
+      Get.showSnackbar(
+        GetBar(
+          messageText: Text(
+            'Alterações registradas com sucesso',
+            style: TextStyle(
+              color: Get.theme.accentColor,
+            ),
           ),
+          duration: duration,
         ),
-        duration: duration,
-      ),
-    );
+      );
 
-    Timer(
+      Timer(
         duration,
         () => {
-              Get.offNamed(AppRoutes.HOME),
-              isLoading.value = false,
-            });
+          Get.offAllNamed(AppRoutes.HOME),
+          isLoading.value = false,
+        },
+      );
+    }
   }
 }
