@@ -24,8 +24,8 @@ class ControllApp extends StatelessWidget {
           translations: MessagesConfig(),
           locale: Locale('pt', 'BR'),
           getPages: AppRoutes.routes,
-          initialRoute: AppRoutes.HOME,
-          initialBinding: HomeBinding(),
+          initialRoute: AppRoutes.SPLASH,
+          initialBinding: SplashBinding(),
           enableLog: true,
         );
       },
