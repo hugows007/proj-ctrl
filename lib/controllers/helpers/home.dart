@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proj_ctrl/controllers/helpers/product.dart';
 import 'package:proj_ctrl/data/model/product.dart';
-import 'package:proj_ctrl/ui/components/products/product_list.dart';
+import 'package:proj_ctrl/ui/components/products/product_list_item.dart';
 
 class HomeHelper {
   final isSearching = false.obs;
@@ -34,11 +34,11 @@ class HomeHelper {
     color: Colors.white,
   );
 
-  List<ProductListComponent> buildList({
+  List<ProductListItemComponent> buildList({
     required ProductHelper productHelper,
   }) {
     return productHelper.products
-        .map((element) => ProductListComponent(
+        .map((element) => ProductListItemComponent(
       index: productHelper.products.indexOf(element),
               product: element,
               productHelper: productHelper,
@@ -46,12 +46,12 @@ class HomeHelper {
         .toList();
   }
 
-  List<ProductListComponent> buildSearchList({
+  List<ProductListItemComponent> buildSearchList({
     required ProductHelper productHelper,
   }) {
     if (searchText.isEmpty) {
       return productHelper.products
-          .map((element) => ProductListComponent(
+          .map((element) => ProductListItemComponent(
                 index: productHelper.products.indexOf(element),
                 product: element,
                 productHelper: productHelper,
@@ -75,7 +75,7 @@ class HomeHelper {
         }
       }
       return _searchList
-          .map((element) => ProductListComponent(
+          .map((element) => ProductListItemComponent(
         index: productHelper.products.indexOf(element),
                 product: element,
                 productHelper: productHelper,

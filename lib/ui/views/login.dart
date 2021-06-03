@@ -12,7 +12,7 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 15.0.h),
+          padding: EdgeInsets.only(top: 12.0.h),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 2.0.w),
             alignment: Alignment.topCenter,
@@ -28,8 +28,8 @@ class LoginView extends GetView<LoginController> {
                         children: [
                           Container(
                             child: Image.asset(ImageUri.splashLogo),
-                            width: 20.0.w,
-                            height: 20.0.h,
+                            width: 18.0.w,
+                            height: 18.0.h,
                           ),
                           TextFormField(
                             controller: controller.loginHelper.loginController,
@@ -93,9 +93,20 @@ class LoginView extends GetView<LoginController> {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 5.0.h),
+                            padding: EdgeInsets.zero,
+                            margin: EdgeInsets.zero,
+                            alignment: Alignment.centerLeft,
+                            child: TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Esqueci minha senha',
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 3.0.h),
                             width: double.infinity,
-                            child: ElevatedButton(
+                            child: OutlinedButton(
                               style: ButtonStyle(
                                 elevation: MaterialStateProperty.resolveWith(
                                     (states) => 10),
@@ -108,11 +119,14 @@ class LoginView extends GetView<LoginController> {
                                   form: form,
                                   loginService: controller.loginService,
                                   loginController: controller),
-                              child: Text(
-                                'Entrar',
-                                style: TextStyle(
-                                    color: Get.theme.primaryColorDark,
-                                    fontSize: 15.0.sp),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Text(
+                                  'Acessar',
+                                  style: TextStyle(
+                                      color: Get.theme.primaryColorDark,
+                                      fontSize: 15.0.sp),
+                                ),
                               ),
                             ),
                           ),

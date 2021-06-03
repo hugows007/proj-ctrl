@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:proj_ctrl/constants/args.dart';
 import 'package:proj_ctrl/core/routes/app_routes.dart';
 import 'package:proj_ctrl/data/model/product.dart';
@@ -11,12 +14,28 @@ import 'package:sizer/sizer.dart';
 class ProductHelper {
   TextEditingController entryController = TextEditingController();
   TextEditingController exitController = TextEditingController();
-  TextEditingController valueController = TextEditingController();
+  MoneyMaskedTextController valueController = MoneyMaskedTextController(
+    leftSymbol: 'R\$ ',
+    decimalSeparator: ',',
+    precision: 2,
+  );
+
+  TextEditingController marketController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+
+  MaskTextInputFormatter maskEntry =
+      MaskTextInputFormatter(mask: '##########', initialText: '0');
+  MaskTextInputFormatter maskExit =
+      MaskTextInputFormatter(mask: '##########', initialText: '0');
+  MaskTextInputFormatter maskDate =
+      MaskTextInputFormatter(mask: '##/##/####', initialText: '0');
 
   final products = List.empty().obs;
   final isLoading = false.obs;
 
   List<ProductDto> productsToSend = [];
+
+  double amount = 0;
 
   int? productIndex;
   ProductDto? productSelected;
@@ -24,27 +43,114 @@ class ProductHelper {
   void sendToServer({
     required ProductService productService,
   }) {
-    Get.defaultDialog(
-      title: 'Enviar para o servidor?',
-      middleText: 'As informações serão enviadas ao servidor',
-      textCancel: 'Não',
-      textConfirm: 'Sim',
-      titleStyle: TextStyle(
-        color: Get.theme.primaryColorDark,
-        fontSize: 16.0.sp,
-      ),
-      middleTextStyle: TextStyle(
-        color: Get.theme.primaryColorDark,
-        fontSize: 12.0.sp,
-      ),
-      confirmTextColor: Get.theme.primaryColorDark,
-      cancelTextColor: Get.theme.primaryColorDark,
-      onConfirm: () => {
-        productService.submitListToServer().then(
-              (value) => confirmationSend(),
+    Get.dialog(Card(
+      margin: EdgeInsets.symmetric(vertical: 13.0.h, horizontal: 8.0.w),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 3.0.h, horizontal: 8.0.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5.0.h),
+              child: Text(
+                'Entre com as informações para enviar ao servidor',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14.0.sp,
+                ),
+              ),
             ),
-      },
-    );
+            TextFormField(
+              controller: marketController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Get.theme.primaryColorDark),
+                    gapPadding: 5),
+                counterText: "",
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
+                    borderSide: BorderSide(color: Get.theme.primaryColorDark)),
+                labelText: 'Loja',
+                labelStyle: TextStyle(
+                  letterSpacing: 0,
+                  color: Get.theme.primaryColorDark,
+                  fontSize: 10.0.sp,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 2.0.h,
+            ),
+            TextFormField(
+              controller: dateController,
+              inputFormatters: [maskDate],
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Get.theme.primaryColorDark),
+                    gapPadding: 5),
+                counterText: "",
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
+                    borderSide: BorderSide(color: Get.theme.primaryColorDark)),
+                labelText: 'Data',
+                labelStyle: TextStyle(
+                  letterSpacing: 0,
+                  color: Get.theme.primaryColorDark,
+                  fontSize: 10.0.sp,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 2.0.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 2.0.h),
+              child: Text(
+                'Total: ${getAmount()}',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14.0.sp,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 1.0.h),
+              width: double.infinity,
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.resolveWith((states) => 10),
+                  backgroundColor: MaterialStateColor.resolveWith(
+                      (states) => Get.theme.accentColor),
+                  foregroundColor: MaterialStateColor.resolveWith(
+                      (states) => Get.theme.primaryColorDark),
+                ),
+                onPressed: () => confirmationSend(),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Enviar para o servidor',
+                    style: TextStyle(
+                        color: Get.theme.primaryColorDark, fontSize: 15.0.sp),
+                  ),
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: Get.back,
+              child: Text('Cancelar'),
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 
   void confirmationSend() {
@@ -85,9 +191,11 @@ class ProductHelper {
       products[productIndex!].saida = exitController.text;
       products[productIndex!].preco = valueController.text;
 
+      amount += valueController.numberValue;
+
       entryController.text = '';
       exitController.text = '';
-      valueController.text = '';
+      valueController.text = '0000';
 
       productsToSend.add(productSelected!);
 
@@ -113,5 +221,14 @@ class ProductHelper {
         },
       );
     }
+  }
+
+  double getHeight(ProductDto productDto) {
+    return productDto.entrada != '0' ? 25.0.h : 11.0.h;
+  }
+
+  String getAmount() {
+    valueController.text = amount.toStringAsFixed(2);
+    return valueController.text;
   }
 }

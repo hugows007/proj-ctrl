@@ -16,10 +16,13 @@ class SplashView extends GetView<SplashController> {
           child: Column(
             children: [
               Image.asset(ImageUri.splashLogo),
-              Text(
-                'Sistema de controle',
-                style: TextStyle(
-                  fontSize: 16.0.sp,
+              Flexible(
+                child: Text(
+                  'Sistema de controle',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 40.0.sp,
+                  ),
                 ),
               )
             ],
