@@ -156,6 +156,9 @@ class ProductHelper {
   void confirmationSend() {
     Get.back();
 
+    marketController.text = '';
+    dateController.text = '';
+
     Get.defaultDialog(
       title: '',
       middleText: 'Enviado com sucesso!',
