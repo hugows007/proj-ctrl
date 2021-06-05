@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:proj_ctrl/constants/args.dart';
 import 'package:proj_ctrl/controllers/home.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends GetView<HomeController> {
+
+
   @override
   Widget build(BuildContext context) {
     controller.buildContext = context;
@@ -40,5 +45,24 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
     );
+  }
+
+  HomeView(){
+    if(Get.arguments == Arguments.argAddProduct){
+      Timer(
+        Duration(microseconds: 100),
+          () => Get.showSnackbar(
+            GetBar(
+              messageText: Text(
+                'Alterações registradas com sucesso',
+                style: TextStyle(
+                  color: Get.theme.accentColor,
+                ),
+              ),
+              duration: Duration(seconds: 2),
+            ),
+          ),
+      );
+    }
   }
 }

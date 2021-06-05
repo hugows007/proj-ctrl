@@ -42,7 +42,7 @@ class ProductListItemComponent extends StatelessWidget {
                                       Container(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          '#${product.id} - ${product.descricao}',
+                                          '${product.codigo} - ${product.descricao}',
                                           style: TextStyle(
                                             fontSize: 15.0.sp,
                                           ),

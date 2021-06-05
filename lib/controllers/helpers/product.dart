@@ -32,21 +32,25 @@ class ProductHelper {
 
   final products = List.empty().obs;
   final isLoading = false.obs;
+  final market = 'Loja A'.obs;
 
   List<ProductDto> productsToSend = [];
 
   double amount = 0;
+  double count = 0;
 
   int? productIndex;
   ProductDto? productSelected;
+
+  List<String> markets = ['Loja A', 'Loja B', 'Loja C', 'Loja D'];
 
   void sendToServer({
     required ProductService productService,
   }) {
     Get.dialog(Card(
-      margin: EdgeInsets.symmetric(vertical: 13.0.h, horizontal: 8.0.w),
+      margin: EdgeInsets.symmetric(vertical: 18.0.h, horizontal: 2.0.w),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 3.0.h, horizontal: 8.0.w),
+        padding: EdgeInsets.symmetric(vertical: 5.0.h, horizontal: 4.0.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -60,53 +64,79 @@ class ProductHelper {
                 ),
               ),
             ),
-            TextFormField(
-              controller: marketController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Get.theme.primaryColorDark),
-                    gapPadding: 5),
-                counterText: "",
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Obx(
+                    () => DropdownButtonFormField(
+                      value: market.value,
+                      isDense: true,
+                      onChanged: (String? newValue) {
+                        market.value = newValue!;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Get.theme.primaryColorDark),
+                            gapPadding: 5),
+                        counterText: "",
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5.0),
+                            ),
+                            borderSide:
+                                BorderSide(color: Get.theme.primaryColorDark)),
+                        labelText: 'Lojas',
+                        labelStyle: TextStyle(
+                          letterSpacing: 0,
+                          color: Get.theme.primaryColorDark,
+                          fontSize: 10.0.sp,
+                        ),
+                      ),
+                      items: markets.map((String value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
-                    borderSide: BorderSide(color: Get.theme.primaryColorDark)),
-                labelText: 'Loja',
-                labelStyle: TextStyle(
-                  letterSpacing: 0,
-                  color: Get.theme.primaryColorDark,
-                  fontSize: 10.0.sp,
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 2.0.h,
-            ),
-            TextFormField(
-              controller: dateController,
-              inputFormatters: [maskDate],
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(top: 10, bottom: 10, left: 15),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Get.theme.primaryColorDark),
-                    gapPadding: 5),
-                counterText: "",
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
+                SizedBox(
+                  width: 2.0.w,
+                ),
+                Expanded(
+                  child: TextFormField(
+                    controller: dateController,
+                    inputFormatters: [maskDate],
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Get.theme.primaryColorDark),
+                          gapPadding: 5),
+                      counterText: "",
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Get.theme.primaryColorDark)),
+                      labelText: 'Data',
+                      labelStyle: TextStyle(
+                        letterSpacing: 0,
+                        color: Get.theme.primaryColorDark,
+                        fontSize: 10.0.sp,
+                      ),
                     ),
-                    borderSide: BorderSide(color: Get.theme.primaryColorDark)),
-                labelText: 'Data',
-                labelStyle: TextStyle(
-                  letterSpacing: 0,
-                  color: Get.theme.primaryColorDark,
-                  fontSize: 10.0.sp,
+                  ),
                 ),
-              ),
+              ],
             ),
             SizedBox(
               height: 2.0.h,
@@ -114,7 +144,7 @@ class ProductHelper {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 2.0.h),
               child: Text(
-                'Total: ${getAmount()}',
+                'Quantidade: ${count.toStringAsFixed(0)}     Total: ${getAmount()}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14.0.sp,
@@ -195,6 +225,8 @@ class ProductHelper {
       products[productIndex!].preco = valueController.text;
 
       amount += valueController.numberValue;
+      count += double.parse(entryController.text) -
+          double.parse(exitController.text);
 
       entryController.text = '';
       exitController.text = '';
@@ -202,27 +234,12 @@ class ProductHelper {
 
       productsToSend.add(productSelected!);
 
-      Duration duration = Duration(seconds: 2);
-
-      Get.showSnackbar(
-        GetBar(
-          messageText: Text(
-            'Alterações registradas com sucesso',
-            style: TextStyle(
-              color: Get.theme.accentColor,
-            ),
-          ),
-          duration: duration,
-        ),
+      Get.offAllNamed(
+        AppRoutes.HOME,
+        arguments: Arguments.argAddProduct,
       );
 
-      Timer(
-        duration,
-        () => {
-          Get.offAllNamed(AppRoutes.HOME),
-          isLoading.value = false,
-        },
-      );
+      isLoading.value = false;
     }
   }
 
@@ -231,7 +248,7 @@ class ProductHelper {
   }
 
   String getAmount() {
-    valueController.text = amount.toStringAsFixed(2);
+    valueController.text = (count * double.parse(amount.toStringAsFixed(2))).toStringAsFixed(2);
     return valueController.text;
   }
 }
