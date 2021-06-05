@@ -77,7 +77,7 @@ class ProductHelper {
                       },
                       decoration: InputDecoration(
                         contentPadding:
-                            EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                            EdgeInsets.only(top: 10, bottom: 10, left: 3.0.w),
                         enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Get.theme.primaryColorDark),
@@ -115,7 +115,7 @@ class ProductHelper {
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       contentPadding:
-                          EdgeInsets.only(top: 10, bottom: 10, left: 15),
+                          EdgeInsets.only(top: 10, bottom: 10, left: 3.0.w),
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Get.theme.primaryColorDark),

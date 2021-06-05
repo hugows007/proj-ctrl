@@ -82,8 +82,8 @@ class ProductInputComponent extends StatelessWidget {
                             productHelper.maskExit
                           ],
                           decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 10, bottom: 10, left: 15),
+                            contentPadding: EdgeInsets.only(
+                                top: 10, bottom: 10, left: 3.0.w),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Get.theme.primaryColorDark),
@@ -111,8 +111,8 @@ class ProductInputComponent extends StatelessWidget {
                           keyboardType: TextInputType.numberWithOptions(
                               signed: true, decimal: true),
                           decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 10, bottom: 10, left: 15),
+                            contentPadding: EdgeInsets.only(
+                                top: 10, bottom: 10, left: 3.0.w),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Get.theme.primaryColorDark),
