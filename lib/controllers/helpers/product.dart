@@ -224,7 +224,7 @@ class ProductHelper {
       products[productIndex!].saida = exitController.text;
       products[productIndex!].preco = valueController.text;
 
-      amount += valueController.numberValue;
+      amount += (valueController.numberValue * (double.parse(entryController.text) - double.parse(exitController.text)));
       count += double.parse(entryController.text) -
           double.parse(exitController.text);
 
@@ -244,11 +244,11 @@ class ProductHelper {
   }
 
   double getHeight(ProductDto productDto) {
-    return productDto.entrada != '0' ? 25.0.h : 11.0.h;
+    return productDto.entrada != '0' ? 18.0.h : 11.0.h;
   }
 
   String getAmount() {
-    valueController.text = (count * double.parse(amount.toStringAsFixed(2))).toStringAsFixed(2);
+    valueController.text = amount.toStringAsFixed(2);
     return valueController.text;
   }
 }

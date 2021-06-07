@@ -57,35 +57,40 @@ class ProductListItemComponent extends StatelessWidget {
                                               height: 20,
                                               thickness: 1,
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text(
-                                                'Entrada: ${product.entrada}',
-                                                style: TextStyle(
-                                                  fontSize: 11.0.sp,
-                                                ),
-                                              ),
-                                            ),
-                                            if (product.saida != '0')
-                                              Padding(
-                                                padding: const EdgeInsets.all(4.0),
-                                                child: Text(
-                                                  'Saída: ${product.saida}',
-                                                  style: TextStyle(
-                                                    fontSize: 11.0.sp,
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    'Entrada: ${product.entrada}',
+                                                    style: TextStyle(
+                                                      fontSize: 11.0.sp,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            if (product.preco != '0')
-                                              Padding(
-                                                padding: const EdgeInsets.all(4.0),
-                                                child: Text(
-                                                  'Valor: ${product.preco}',
-                                                  style: TextStyle(
-                                                    fontSize: 11.0.sp,
+                                                if (product.saida != '0')
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(4.0),
+                                                    child: Text(
+                                                      'Saída: ${product.saida}',
+                                                      style: TextStyle(
+                                                        fontSize: 11.0.sp,
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
+                                                if (product.preco != '0')
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(4.0),
+                                                    child: Text(
+                                                      'Valor: ${product.preco}',
+                                                      style: TextStyle(
+                                                        fontSize: 11.0.sp,
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ],
+                                            )
                                           ],
                                         ),
                                     ],
